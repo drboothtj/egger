@@ -1,0 +1,25 @@
+## Wed Apr 19 13:05:03 2023
+## emapper-2.1.9
+## /data/shared/home/emapper/miniconda3/envs/eggnog-mapper-2.1/bin/emapper.py --cpu 20 --mp_start_method forkserver --data_dir /dev/shm/ -o out --output_dir /emapper_web_jobs/emapper_jobs/user_data/MM_5terje87 --temp_dir /emapper_web_jobs/emapper_jobs/user_data/MM_5terje87 --override -m diamond --dmnd_ignore_warnings -i /emapper_web_jobs/emapper_jobs/user_data/MM_5terje87/queries.fasta --evalue 0.001 --score 60 --pident 40 --query_cover 20 --subject_cover 20 --itype proteins --tax_scope 201174 --target_orthologs all --go_evidence non-electronic --pfam_realign none --report_orthologs --decorate_gff yes --excel
+##
+#query	seed_ortholog	evalue	score	eggNOG_OGs	max_annot_lvl	COG_category	Description	Preferred_name	GOs	EC	KEGG_ko	KEGG_Pathway	KEGG_Module	KEGG_Reaction	KEGG_rclass	BRITE	KEGG_TC	CAZy	BiGG_Reaction	PFAMs
+AL645882_2_SCO0001	100226.SCO0001	9.79e-159	445.0	2APET@1|root,31EHG@2|Bacteria,2ICA3@201174|Actinobacteria	201174|Actinobacteria	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+AL645882_2_SCO0002	100226.SCO0002	0.0	1699.0	COG1061@1|root,COG4889@1|root,COG1061@2|Bacteria,COG4889@2|Bacteria,2GKP2@201174|Actinobacteria	201174|Actinobacteria	L	helicase	-	-	-	-	-	-	-	-	-	-	-	-	HA,ResIII
+AL645882_2_SCO0003	100226.SCO0003	0.0	1600.0	COG1111@1|root,COG1111@2|Bacteria,2I9AI@201174|Actinobacteria	201174|Actinobacteria	L	helicase	-	-	-	-	-	-	-	-	-	-	-	-	HA,TniQ
+AL645882_2_SCO0004	100226.SCO0004	1.57e-234	644.0	2DPKK@1|root,332IR@2|Bacteria,2IH34@201174|Actinobacteria	201174|Actinobacteria	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+AL645882_2_SCO0005	100226.SCO0005	0.0	1419.0	COG2801@1|root,COG2801@2|Bacteria,2HITH@201174|Actinobacteria	201174|Actinobacteria	L	DNA-binding transcription factor activity	-	-	-	-	-	-	-	-	-	-	-	-	Mu-transpos_C,rve
+AL645882_2_SCO0006	100226.SCO0006	1.69e-258	709.0	COG2842@1|root,COG2842@2|Bacteria,2GKXH@201174|Actinobacteria	201174|Actinobacteria	C	Bacterial TniB protein	-	-	3.6.1.3	ko:K07132	-	-	-	-	ko00000,ko01000	-	-	-	TniB
+AL645882_2_SCO0009	566461.SSFG_00016	1.11e-22	98.2	2BQ2W@1|root,32IXB@2|Bacteria,2IDSR@201174|Actinobacteria	201174|Actinobacteria	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+AL645882_2_SCO0010	100226.SCO0010	2.25e-265	726.0	2ESZ3@1|root,33KHB@2|Bacteria,2IDJA@201174|Actinobacteria	201174|Actinobacteria	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+AL645882_2_SCO0011	100226.SCO0011	2.15e-193	536.0	COG2801@1|root,COG2801@2|Bacteria,2GP8B@201174|Actinobacteria	201174|Actinobacteria	L	Transposition protein	-	-	-	ko:K07497	-	-	-	-	ko00000	-	-	-	Mu-transpos_C,rve
+AL645882_2_SCO0012	100226.SCO0012	1.3e-99	288.0	2E1HJ@1|root,32WVP@2|Bacteria,2IBY1@201174|Actinobacteria	201174|Actinobacteria	S	Protein of unknown function (DUF4241)	-	-	-	-	-	-	-	-	-	-	-	-	DUF4241
+AL645882_2_SCO0013	100226.SCO0013	7.58e-71	212.0	2DQM7@1|root,32UPC@2|Bacteria,2IFJG@201174|Actinobacteria	201174|Actinobacteria	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+AL645882_2_SCO0014	100226.SCO0014	5.51e-60	184.0	2FIBE@1|root,34A3R@2|Bacteria,2IQV3@201174|Actinobacteria	201174|Actinobacteria	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+AL645882_2_SCO0015	100226.SCO0015	3.71e-265	729.0	COG3004@1|root,COG3004@2|Bacteria,2GKIK@201174|Actinobacteria	201174|Actinobacteria	P	Na( ) H( ) antiporter that extrudes sodium in exchange for external protons	nhaA	-	-	ko:K03313	-	-	-	-	ko00000,ko02000	2.A.33.1	-	-	Na_H_antiport_1
+AL645882_2_SCO0016	100226.SCO0016	5.69e-44	142.0	2BRAT@1|root,32K9B@2|Bacteria,2HB1Z@201174|Actinobacteria	100226.SCO0016|-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+AL645882_2_SCO0017	100226.SCO0017	8.48e-81	239.0	2BFF5@1|root,3298V@2|Bacteria,2IHHX@201174|Actinobacteria	201174|Actinobacteria	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+AL645882_2_SCO0018	100226.SCO0018	9.19e-209	577.0	COG2203@1|root,COG2203@2|Bacteria,2H633@201174|Actinobacteria	201174|Actinobacteria	T	ANTAR	-	-	-	-	-	-	-	-	-	-	-	-	ANTAR,GAF,GAF_2
+AL645882_2_SCO0020	100226.SCO0020	0.0	1091.0	COG3464@1|root,COG3464@2|Bacteria,2IKWK@201174|Actinobacteria	201174|Actinobacteria	L	Transposase	-	-	-	-	-	-	-	-	-	-	-	-	DDE_Tnp_ISL3
+AL645882_2_SCO0021	100226.SCO0021	5.56e-142	400.0	2EAD0@1|root,334GW@2|Bacteria,2GSEQ@201174|Actinobacteria	201174|Actinobacteria	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+AL645882_2_SCO0022	100226.SCO0022	1.98e-96	280.0	COG1484@1|root,COG1484@2|Bacteria,2H714@201174|Actinobacteria	201174|Actinobacteria	L	PFAM IstB domain protein ATP-binding protein	-	-	-	-	-	-	-	-	-	-	-	-	IstB_IS21
+AL645882_2_SCO0026	100226.SCO0026	8.78e-115	329.0	2B3TD@1|root,31WH3@2|Bacteria,2GX9N@201174|Actinobacteria	201174|Actinobacteria	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
