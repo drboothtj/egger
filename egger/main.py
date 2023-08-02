@@ -1,71 +1,115 @@
-from egger.dataclasses.locusclass import Locus
-from egger import annotation_reader
-from typing import List, Tuple
+'''
+egger: visualise eggnog-mapper data
 
-def get_bins(genome_length: int, n_bins: int) -> List[Tuple]:
-        '''
-        automatically allocate the bin start and end points depending on the genome size
-            Arguments:
-                genome_length: 
-                    the length of the genome in base pairs
-                n_bins: 
-                    the number of bins specified by the user
-            Returns:
-                bins_list: 
-                    a list of tuples indicating the start and end point of the each bin
-        '''
-        bin_size = genome_length // n_bins
-        bins_list = []
-        bin_start = 1
-        #if not divisable shoot a warning
-        for _bin in range(0, n_bins):
-            bin_end = bin_start + bin_size - 1
-            bin_tuple = (bin_start, bin_end)
-            bins_list.append(bin_tuple)
-            bin_start = bin_end + 1
-        return bins_list
+functions:
+    !!!!!!!!
+'''
+import sys
+from typing import Dict, List, Tuple
+from egger import io, process
+import plotly.graph_objects as go
 
-def populate_bins(locus_list: List[Locus], bins_list: List[Tuple]):
+
+### SORT OUT ARCHITECTURE!
+###MAKE A PROPER PARSER
+### ADD OTHER FUNCTIONS -list headers -extract-fasta-from-
+##add logging
+##add errors
+##write raw data
+
+ANNOTATION_FILE = sys.argv[1]
+GBK_FILE = sys.argv[2]
+ANNOTATION_TYPE = sys.argv[3]
+#NUMBER_OF_BINS = sys.argv[4]
+### WINDOW_SIZE
+
+def slide_window(data_points: List[Tuple[str, str, int]], categories: List[str]): #add return hint
     '''
-    create a dictionary for each bin containing data for each loci that falls within its limits
-        Arguments:
-            locus_list:
-                list of loci annotated with names, functions and positional info
-        Returns:
-            bins_dicts:
-                list of dictionarys ???
+    applies a sliding window to datapoints
+        data_points: list of tuples describing the protein midpoint and annotation
+        categories: a list of categories to plot
+    returns:
+        window_data: a list of tuples containing the window midpoint and the ...
     '''
-    for locus in locus_list:
-        if locus.start is not None and locus.stop is not None: #remove None values earlier
-            midpoint = locus.midpoint()
-            for _bin in bins_list:
-                if midpoint > _bin[0] and midpoint < _bin[1]: #inclusive
-                    print('hit')
-                    break
+    window_size = 50000 ## catch stupid window size
+    window_position = 0
+    maximum_position = max([point[1] for point in data_points])
+    window_data = {}
+    while window_position < maximum_position:
+        window_end = window_position + window_size
+        window_midpoint = window_position + window_size / 2
+        #print(
+        #    'window start: %s, window_end: %s, window_midopoint; %s'
+        #    % (window_position, window_end, window_midpoint)
+        #    )
+        #print(maximum_position)
+        window_data[window_midpoint] = {category: 0 for category in categories}
+        for data in data_points:
+            if window_position < data[1] < window_end: #check if missing or counted twice in between
+                window_data[window_midpoint][data[2]] += 1 ##except key error split
+        window_position += window_size
+    return window_data
 
-
-def main():
-    '''main routine for egger'''   
-    ###get args###
-    genome_size = 1000000
-    number_of_bins = 20
-    annotations_path = '/home/thoboo/git/egger/example_data/sco_example.annotations'
-    gbk_path = '/home/thoboo/git/egger/example_data/streptomyces_coelicolor.gb'
-    ###get args###
-
-    locus_list = annotation_reader.get_loci(annotations_path, gbk_path)
-    bins_list = get_bins(genome_size, number_of_bins)
-    histogram_data = populate_bins(locus_list, bins_list)
-    
-    ###plot histogram###
-    #blah blah blah
-    ###plot histogram###
-    
+def make_figure(window_data: Dict) -> None:
     '''
-    tests = ['aaa', 'bbb', 'ccc']
-    test_classes = []
-    for item in tests:
-        test_classes.append(Locus(name=item))
-    print(test_classes)
+    make and write plotly graph object from traces
+        arguments: 
+            window_data: List of graph objects for each category to be plotted
+        returns:
+            None
     '''
+    figure_title = f'Distribution of XXX in XXX.' ## add to figure
+    figure = go.Figure()
+    for category in categories:
+        x_values = list(window_data.keys())
+        y_values = [window_data[x_value][category] for x_value in x_values]
+        trace = go.Scatter(x=x_values, y=y_values, mode="lines", name=category)
+        figure.add_trace(trace)
+    figure.write_html('plot.html')
+    ##update figure with legends etc.
 
+def plot_data(data_points, record) -> None:
+    '''
+    plots datapoints for a given record
+        arguments:
+            datapoints: list of tuples describing the protein midpoint and annotation
+            record: the record to plot
+        returns:
+            None
+    '''
+    data_to_plot = [data for data in data_points if data[0] == record]
+    categories = set([data[2] for data in data_points])
+    categories = ''.join(categories)
+    categories = set(categories)
+    window_data = slide_window(data_to_plot, categories) ### CONTINUE FROM HERE
+    make_figure(window_data)
+
+def main(annotation_filename: str, gbk_filename: str, annotation_type: str) -> None:
+    '''
+    main routine for egger
+        arguments:
+            annotation_filename: path to .annotations file
+            gbk_filename: path to .gbk file
+            annotation_type: annotation header to plot
+        returns:
+            None
+    '''
+    ### Combine data from .annotation and .gbk ###
+    lines = io.read_tsv(annotation_filename)
+    annotations = process.process_headers(lines)
+    proteins = process.convert_annotations_to_dictionary(annotations)
+    proteins = process.add_location_data(gbk_filename, proteins)
+    data_points = process.get_data_for_plot(proteins, annotation_type)
+
+    ### Write datapoint to file
+    ### DO THIS!
+
+    ### Make plots for each record ###
+    records = set([point[0] for point in data_points])
+    for record in records:
+        plot_data(data_points, record)
+
+    #bin data?
+    #make plots
+
+main(ANNOTATION_FILE, GBK_FILE, ANNOTATION_TYPE) #NUMBER_OF_BINS

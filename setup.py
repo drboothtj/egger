@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="egger",
-    version="0.0.1",
+    version="0.0.2",
     author="Thomas J. Booth",
     author_email="thoboo@biosustain.dtu.dk",
     packages=find_packages(),
@@ -14,7 +14,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/DrBoothTJ/egger",
     license='GNU General Public License v3.0',
-    python_requires='>=3.7',
-    install_requires=[],
+    python_requires='>=3.9',
+    install_requires=[plotly, pandas, Bio],
     entry_points={'console_scripts': ["egger=egger.__main__:entrypoint"]}
 )
