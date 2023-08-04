@@ -3,53 +3,18 @@ functions for processing annotation data for egger plotting
     functions:
         !!!!
 '''
+from egger import io
 from typing import Dict, List, Tuple
 from Bio import SeqIO
 
 def get_categorys(data_points):
+    '''
+    !!!
+    '''
     categories = set([data[2] for data in data_points])
     categories = ''.join(categories)
     categories = set(categories)
     return categories
-
-def slide_window(
-    data_points: List[Tuple[str, str, int]], record, categories: List[str],
-    window_size: int, step_size: int
-    ): #add return hint
-    '''
-    applies a sliding window to datapoints
-        data_points: list of tuples describing the protein midpoint and annotation
-        categories: a list of categories to plot
-    returns:
-        window_data: a list of tuples containing the window midpoint and the ...
-    '''
-    window_position = 0
-    maximum_position = max([point[1] for point in data_points])
-    ## ADD CHECK WINDOW SIZE FUNCTON
-    if window_size is None:
-        window_size = maximum_position/10
-    if step_size is None:
-        step_size = window_size/2
-    ###
-    window_data = {}
-    while window_position < maximum_position:
-        window_end = window_position + window_size
-        window_midpoint = window_position + window_size / 2
-        #print(
-        #    'window start: %s, window_end: %s, window_midopoint; %s'
-        #    % (window_position, window_end, window_midpoint)
-        #    )
-        #print(maximum_position)
-        window_data[window_midpoint] = {category: 0 for category in categories}
-        for data in data_points:
-            if window_position < data[1] < window_end: #check if missing or counted twice in between
-                try:
-                    window_data[window_midpoint][data[2]] += 1 ##except key error split
-                except KeyError:
-                    for character in data[2]:
-                        window_data[window_midpoint][character] += 1
-        window_position += step_size
-    return window_data
 
 def process_headers(lines: List[str]) -> Tuple[str, List[str]]:
     '''
@@ -88,7 +53,7 @@ def convert_annotations_to_dictionary(annotations: Tuple[str, List[str]]) -> Lis
         proteins.append(protein)
     return proteins
 
-def get_cds_locations(filename: str) -> List[Tuple[str, str, int]]:
+def get_cds_locations(filename: str) -> List[Tuple[str, str, int, int, float]]:
     '''
     read a genbank file and return a dictionary with CDS location information
         arguments:
@@ -107,7 +72,7 @@ def get_cds_locations(filename: str) -> List[Tuple[str, str, int]]:
                 start = int(feature.location.start)
                 stop = int(feature.location.end)
                 midpoint = start + ((stop-start)/2)
-                locations_list.append((cds_name, record_name, midpoint))
+                locations_list.append((cds_name, record_name, start, stop, midpoint))
     return locations_list
 
 def add_location_data(filename: str, proteins: List[Dict]) -> List[Dict]:
@@ -124,7 +89,9 @@ def add_location_data(filename: str, proteins: List[Dict]) -> List[Dict]:
         for protein in proteins:
             if cds[0] in protein['#query']:
                 protein['record_name'] = cds[1] #missing record error
-                protein['midpoint'] = cds[2]
+                protein['start'] = cds[2]
+                protein['stop'] = cds[3]
+                protein['midpoint'] = cds[4]
     return proteins
 
 def get_data_for_plot(
@@ -152,4 +119,17 @@ def get_data_for_plot(
         data_points.append(data_point)
     return data_points
 
-
+def process(annotation_filename, gbk_filename, annotation_type):
+    '''
+    main routine for process
+        arguments:!!
+        returns: !!
+    '''
+    lines = io.read_tsv(annotation_filename)
+    annotations = process_headers(lines)
+    proteins = convert_annotations_to_dictionary(annotations)
+    proteins = add_location_data(gbk_filename, proteins)
+    data_points = get_data_for_plot(proteins, annotation_type)
+    categories = get_categorys(data_points) #list of categories
+    records = set([point[0] for point in data_points])   #list of record names
+    return data_points, categories, records

@@ -47,24 +47,26 @@ def get_parser():
         '--step-size',
         type=int,
         default=None,
-        help='the category of annotations to plot (default: )'
+        help='the category of annotations to plot (default: %(default)s)'
         )
     parser.add_argument(
-        '-p',
-        '--plot',
-        action='store_true',
-        help='the category of annotations to plot (default: )'
+        '-swp',
+        '--sliding-window-plot',
+        type=str,
+        default = None,
+        help='path to save the sliding window plot (default: %(default)s)'
         )
     parser.add_argument(
-        '-o',
-        '--output',
-        action='store_true',
-        help='the category of annotations to plot (default: )'
+        '-swo',
+        '--sliding-window-output',
+        type=str,
+        default = None,
+        help='path to save the sliding window output data table (default: %(default)s)'
         )
     parser.add_argument(
         '-l',
         '--logging',
-        help='the logging level for egger (default: )'
+        help='the logging level for egger (default: %(default)s)'
         )
     return parser
 
