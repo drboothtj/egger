@@ -4,16 +4,16 @@ egger: visualise eggnog-mapper data
 functions:
     !!!!!!!!
 '''
-from egger import parser, process, slide
+from egger import chart, parser, process, slide
 
-### ADD OTHER FUNCTIONS -list headers -extract-fasta-from-gbk
 ## add logging
 ## add error
-## plot bar chart and write data
 ## figureout which categories we can chart
-## finish parser make plot used <-
+## finish parser - fix arguments to binary
 ## sort out architecture
 ## seriously clean up code
+## make plots pretty
+## specify an output directory
 
 def main() -> None:
     '''
@@ -41,13 +41,14 @@ def main() -> None:
         annotation_filename, gbk_filename, annotation_type
         )
     ### Make Bar Chart
-    #plot.plot_bar_chart(data_points)
+    bar.plot_bar_chart(data_points, records)
     ### Make frame plots for each record ###
     if sw_plot or sw_output:
-        all_window_data = slide.get_window_data(records, categories, data_points, window_info)
-        for window_data in all_window_data:
+        for record in records:
+            window_data = slide.get_window_data(record, categories, data_points, window_info) 
+            #parse out slide.get_window_data and slide.slide_window
             if sw_plot:
-                slide.plot_sliding_window(window_data, categories, sw_plot)
+                slide.plot_sliding_window(window_data, categories, sw_plot, record)
             if sw_output:
-                slide.output(all_window_data, sw_output)
+                slide.output(window_data, sw_output, record)
     print('egger is done!')

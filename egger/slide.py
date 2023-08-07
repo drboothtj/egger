@@ -2,12 +2,12 @@
 produces sliding window graph and data
     functions: !!!
 '''
-from egger import io
 from typing import Dict, List, Tuple
 import plotly.graph_objects as go
+from egger import io
 
 def slide_window(
-    data_points: List[Tuple[str, str, int]], record, categories: List[str],
+    data_points: List[Tuple[str, str, int]], categories: List[str],
     window_size: int, step_size: int
     ): #add return hint
     '''
@@ -21,7 +21,8 @@ def slide_window(
     maximum_position = max([point[1] for point in data_points])
     ## ADD CHECK WINDOW SIZE FUNCTON
     if window_size is None:
-        window_size = maximum_position/10
+        window_size = maximum_position/100
+        window_size = max(window_size, 5000)
     if step_size is None:
         step_size = window_size/2
     ###
@@ -45,20 +46,19 @@ def slide_window(
         window_position += step_size
     return window_data
 
-def get_window_data(records, categories, data_points, window_info) -> None:
+def get_window_data(record, categories, data_points, window_info) -> None:
     '''
     main routine for slide
         arguments:
         retruns: None
     '''
-    all_window_data = []
-    for record in records:
-        data_points = [data for data in data_points if data[0] == record]
-        window_data = slide_window(data_points, record, categories, window_info[0], window_info[1])
-        all_window_data.append(window_data)
-    return all_window_data
+    record_points = [data for data in data_points if data[0] == record]
+    window_data = slide_window(record_points, categories, window_info[0], window_info[1])
+    return window_data
 
-def plot_sliding_window(window_data: Dict, categories: List[str], filename: str) -> None:
+def plot_sliding_window(
+    window_data: Dict, categories: List[str], filename: str, record: str
+    ) -> None:
     '''
     make and write plotly graph object from traces
         arguments: 
@@ -73,25 +73,22 @@ def plot_sliding_window(window_data: Dict, categories: List[str], filename: str)
         y_values = [window_data[x_value][category] for x_value in x_values]
         trace = go.Scatter(x=x_values, y=y_values, mode="lines", name=category)
         figure.add_trace(trace)
-    figure.write_html(filename)
+    figure.write_html(record + filename)
     ##update figure with legends etc.
-    ### Output Frame Plot Data ###
 
-def output(contents: List[Dict], output):
+def output(contents: Dict, output: str, record: str) -> None:
     '''
      convert sliding window data into a list of lines for writing
         arguments: 
-            contents: list of dictionarys containing window data
+            contents: a dictionary containing window data
         returns:
-            lines: list of lines
+            None
     '''
     lines = []
-    for record in contents:
-        #add record names
-        for key in record.keys():
-            line = [key]
-            values = [x for x in record[key].values()]
-            line.extend(values)
-            lines.append(line)
-    io.write_to_tsv(output, lines)
+    for key in contents.keys():
+        line = [key]
+        values = [x for x in contents[key].values()]
+        line.extend(values)
+        lines.append(line)
+    io.write_to_tsv(record + output, lines)
     
