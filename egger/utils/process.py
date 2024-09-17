@@ -3,7 +3,7 @@ functions for processing annotation data for egger plotting
     functions:
         !!!!
 '''
-from egger import io
+from egger.utils import io
 from typing import Dict, List, Tuple
 from Bio import SeqIO
 

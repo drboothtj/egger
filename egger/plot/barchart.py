@@ -6,7 +6,7 @@ plot bar charts for egger
 from collections import Counter
 from typing import List, Tuple
 import plotly.graph_objects as go
-from egger import io
+from egger.utils import io
 
 def remove_dual_categories(category_count: Counter) -> Counter:
     '''

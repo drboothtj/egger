@@ -4,7 +4,7 @@ produces sliding window graph and data
 '''
 from typing import Dict, List, Tuple
 import plotly.graph_objects as go
-from egger import io
+from egger.utils import io
 
 def slide_window(
     data_points: List[Tuple[str, str, int]], categories: List[str],
