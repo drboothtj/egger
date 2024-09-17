@@ -18,7 +18,7 @@ def slide_window(
         window_data: a list of tuples containing the window midpoint and the ...
     '''
     window_position = 0
-    maximum_position = max([point[1] for point in data_points])
+    maximum_position = max(point[1] for point in data_points)
     ## ADD CHECK WINDOW SIZE FUNCTON
     if window_size is None:
         window_size = maximum_position/100
@@ -66,7 +66,7 @@ def plot_sliding_window(
         returns:
             None
     '''
-    figure_title = f'Distribution of XXX in XXX.' ## add to figure
+    figure_title = f'Distribution of XXX in XXX.' ## add to figure and fix
     figure = go.Figure()
     for category in categories:
         x_values = list(window_data.keys())
@@ -76,7 +76,7 @@ def plot_sliding_window(
     figure.write_html(record + filename)
     ##update figure with legends etc.
 
-def output(contents: Dict, output: str, record: str) -> None:
+def write_data(contents: Dict, output: str, record: str) -> None:
     '''
      convert sliding window data into a list of lines for writing
         arguments: 
@@ -87,7 +87,7 @@ def output(contents: Dict, output: str, record: str) -> None:
     lines = []
     for key in contents.keys():
         line = [key]
-        values = [x for x in contents[key].values()]
+        values = list(contents[key].values())
         line.extend(values)
         lines.append(line)
     io.write_to_tsv(record + output, lines)

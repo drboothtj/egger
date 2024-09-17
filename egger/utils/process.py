@@ -3,15 +3,16 @@ functions for processing annotation data for egger plotting
     functions:
         !!!!
 '''
-from egger.utils import io
 from typing import Dict, List, Tuple
 from Bio import SeqIO
+
+from egger.utils import io
 
 def get_categorys(data_points):
     '''
     !!!
     '''
-    categories = set([data[2] for data in data_points])
+    categories = {data[2] for data in data_points}
     categories = ''.join(categories)
     categories = set(categories)
     return categories
@@ -113,7 +114,7 @@ def get_data_for_plot(
             )
         except KeyError:
             print(
-                'Warning: %s is missing information and so was excluded.' % protein['#query']
+                f"Warning: {protein['#query']} is missing information and so was excluded."
             )
         ##ADD ERROR FOR BAD ANNOTATION TYPE or missing midpoint
         data_points.append(data_point)
@@ -131,5 +132,5 @@ def process(annotation_filename, gbk_filename, annotation_type):
     proteins = add_location_data(gbk_filename, proteins)
     data_points = get_data_for_plot(proteins, annotation_type)
     categories = get_categorys(data_points) #list of categories
-    records = set([point[0] for point in data_points])   #list of record names
+    records = {[point[0] for point in data_points]}   #list of record names
     return data_points, categories, records
