@@ -7,7 +7,13 @@ from collections import Counter
 from typing import Dict, List
 
 from egger.utils.process import process, get_categorys
-from egger.compare import barchart
+from egger.compare import barchart, rank
+
+def check_args(args):
+    '''
+    Check for valid input and outputs
+    '''
+    print('add argument checker!')
 
 def get_proteomes(annotation_files: List) -> List[Dict]:
     '''
@@ -48,8 +54,14 @@ def main(args):
     '''
     main routine for the compare functions
     '''
+    check_args(args)
     proteomes = get_proteomes(args.annotations)
     categories = sorted(get_categorys([protein for proteome in proteomes for protein in proteome['proteins']]))
     proteomes = get_category_counts(proteomes, categories)
-    barchart.plot_bar_chart(proteomes, categories) 
-    
+    if args.barchart:
+        barchart.plot_bar_chart(proteomes, categories, args.barchart)
+    if args.spearmans:
+        rank.rank(proteomes, categories, args.spearmans, 'spearmans')
+    if args.pearsons:
+        rank.rank(proteomes, categories, args.pearsons, 'pearsons')
+    #plot raw counts

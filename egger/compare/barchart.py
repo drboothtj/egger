@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from typing import List, Dict
 from collections import Counter
 
-def draw_barchart(labels: List, counters: List[Counter], categories: List) -> None:
+def draw_barchart(labels: List, counters: List[Counter], categories: List, filename: str) -> None:
     '''
     Uses matplotlib to draw a bar chart
     '''
@@ -27,10 +27,10 @@ def draw_barchart(labels: List, counters: List[Counter], categories: List) -> No
     ax.set_xticks(index + bar_width * (n_counters / 2 - 0.5))
     ax.set_xticklabels(categories)
     ax.legend(title="Source")
-    #save as svg
-    plt.savefig("test.svg") #add options
+    # Save as svg
+    plt.savefig(filename + '.svg') #add options
 
-def plot_bar_chart(proteomes: List[Dict], categories) -> None:
+def plot_bar_chart(proteomes: List[Dict], categories, filename: str) -> None:
     '''
     plot the bar chart in plotly
         arguments: 
@@ -40,4 +40,4 @@ def plot_bar_chart(proteomes: List[Dict], categories) -> None:
     '''
     labels = [proteome['name'] for proteome in proteomes]
     counters = [proteome['category_counts'] for proteome in proteomes]
-    draw_barchart(labels, counters, categories)
+    draw_barchart(labels, counters, categories, filename)

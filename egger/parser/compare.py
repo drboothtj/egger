@@ -23,3 +23,24 @@ def get_parser(subparsers):
         default=None,
         help='paths to the eggnog annotations files to compare (default: %(default)s)'
     )
+    parser.add_argument(
+        '-b',
+        '--barchart',
+        type=str,
+        default=None,
+        help='prefix for the output barchart svg (default: %(default)s)'
+    )
+    parser.add_argument(
+        '-s',
+        '--spearmans',
+        type=str,
+        default=None,
+        help='prefix for the output the Spearmans rank data (default: %(default)s)'
+    )
+    parser.add_argument(
+        '-p',
+        '--pearsons',
+        type=str,
+        default=None,
+        help='prefix for the output the Pearsons rank data (default: %(default)s)'
+    )
