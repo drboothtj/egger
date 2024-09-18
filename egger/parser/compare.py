@@ -23,15 +23,3 @@ def get_parser(subparsers):
         default=None,
         help='paths to the eggnog annotations files to compare (default: %(default)s)'
     )
-    parser.add_argument(
-        '-c',
-        '--category',
-        type=str,
-        default='COG_category',
-        help='the category of annotations to plot (default: %(default)s)'
-        )
-    parser.add_argument(
-        '-l',
-        '--logging',
-        help='the logging level for egger (default: %(default)s)'
-        )

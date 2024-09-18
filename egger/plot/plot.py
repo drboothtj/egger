@@ -3,7 +3,7 @@ main routine for plot module
 '''
 import sys
 
-from egger.plot import slide, barchart
+from egger.plot import slide
 from egger.utils import process
 
 def main(args):
@@ -27,8 +27,6 @@ def main(args):
     data_points, categories, records = process.process(
         annotation_filename, gbk_filename, annotation_type
         )
-    ### Make Bar Chart
-    barchart.plot_bar_chart(data_points, records)
     ### Make frame plots for each record ###
     if sw_plot or sw_output:
         for record in records:

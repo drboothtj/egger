@@ -8,12 +8,18 @@ from Bio import SeqIO
 
 from egger.utils import io
 
-def get_categorys(data_points):
+def get_categorys(proteins: List[Dict]):
     '''
-    !!!
+    return a set of categories from a list of qualatative data
+        arguments:
+            data_points: a list of tuples reprisenting the annotation data
+        returns:
+            categories: a set of discrete categories
     '''
-    categories = {data[2] for data in data_points}
-    categories = ''.join(categories)
+    # some data have multiple categories 
+    # this is the simplest method to deal with that!
+    categories = {dictionary['COG_category'] for dictionary in proteins}
+    categories = ''.join(categories) 
     categories = set(categories)
     return categories
 
@@ -120,17 +126,23 @@ def get_data_for_plot(
         data_points.append(data_point)
     return data_points
 
-def process(annotation_filename, gbk_filename, annotation_type):
+def process(annotation_filename):
     '''
     main routine for process
-        arguments:!!
-        returns: !!
+        arguments:
+            annotation_filename: path to eggnog annotations
+            gbk_filename: path to corresponding genbank file
+            annotation_type: with annotations to map
+        returns:
+            data_points: 
+            categories:
+            records:
     '''
     lines = io.read_tsv(annotation_filename)
     annotations = process_headers(lines)
     proteins = convert_annotations_to_dictionary(annotations)
-    proteins = add_location_data(gbk_filename, proteins)
-    data_points = get_data_for_plot(proteins, annotation_type)
-    categories = get_categorys(data_points) #list of categories
-    records = {[point[0] for point in data_points]}   #list of record names
-    return data_points, categories, records
+    return proteins
+    #proteins = add_location_data(gbk_filename, proteins)
+    #cds_data = get_data_for_plot(proteins, annotation_type)    
+    #records = {[point[0] for point in cds_data]}   #list of record names
+    #return cds_data, categories, records
