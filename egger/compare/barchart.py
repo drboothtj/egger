@@ -42,3 +42,5 @@ def plot_bar_chart(proteomes: List[Dict], categories, filename: str) -> None:
     labels = [proteome['name'] for proteome in proteomes]
     counters = [proteome['category_counts'] for proteome in proteomes]
     draw_barchart(labels, counters, categories, filename)
+    
+    #also draw normalised barchart

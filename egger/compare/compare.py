@@ -66,4 +66,3 @@ def main(args):
         rank.rank(proteomes, categories, args.spearmans, 'spearmans')
     if args.pearsons:
         rank.rank(proteomes, categories, args.pearsons, 'pearsons')
-    #plot raw counts

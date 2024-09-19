@@ -30,25 +30,35 @@ def print_rank_data(filename: str, counters: List, labels: List) -> None:
     '''
     print rank data from counters
     '''
-    lines = []
+    #this is a terrible function rewrite
+    rank_lines = []
+    count_lines = []
     line = ["source"]
     line.extend(sorted(counters[0].keys()))
-    lines.append(line)
+    count_lines.append(line)
+    rank_lines.append(line)
     for label, counter in zip(labels, counters):
         line = []
         line.append(label)
-        counts = [counter[key] for key in lines[0]]
+        counts = [counter[key] for key in count_lines[0]]
         ranks = rankdata(counts)
         line.extend(list(ranks))
-        lines.append(line)
-    write_to_tsv(filename + '_ranks.tsv', lines)
+        rank_lines.append(line)
+        line = []
+        line.append(label)
+        line.extend(counts)
+        count_lines.append(line)
+    write_to_tsv(filename + '_ranks.tsv', rank_lines)
+    write_to_tsv(filename + '_counts.tsv', count_lines)
 
 def write_data(filename, data, labels):
     new_lines = []
-    new_lines.append(labels)
+    headers = [" "]
+    headers.extend(labels)
+    new_lines.append(headers)
     for line, label in zip (data, labels):
         new_line = []
-        new_line.append([label])
+        new_line.append(label)
         new_line.extend(list(line))
         new_lines.append(new_line)
     write_to_tsv(filename, new_lines)
