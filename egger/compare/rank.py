@@ -11,6 +11,29 @@ from typing import List, Dict
 from scipy.stats import spearmanr, pearsonr
 from scipy.cluster import hierarchy
 
+def write_dendro_heatmap(correlation_matrix, labels: List, filename: str) -> None:
+    '''
+    creates and writes a dendrogram heatmap from the provided matrix
+        arguments:
+            correlation_matrix: a numpy matrix for all vs all spearmans or pearsons correlations
+            labels: list of labels for the rows of the matrix
+            filename: string for the filename prefix
+        returns:
+            None
+    '''
+    # Perform hierarchical clustering
+    dendro = hierarchy.linkage(correlation_matrix, method='ward', optimal_ordering=True)  # check if ward is best!
+    dendro_idx = hierarchy.dendrogram(dendro, no_plot=True)['leaves']  
+
+    # Plot heatmap with dendrogram
+    plt.figure(figsize=(10, 8))
+    sns.clustermap(correlation_matrix, cmap='coolwarm', annot=False, fmt='.2e',
+        cbar_kws={'label': 'Correlation'}, #fix 
+        xticklabels=labels,
+        yticklabels=labels)
+    plt.savefig(filename + '.svg')
+
+
 def get_matracies(counters, categories, analysis_type):
     '''
     get the correlation and p-value matracies for Spearmans rank analysis
@@ -47,16 +70,9 @@ def rank(proteomes: List[Dict], categories: List, filename: str, analysis_type: 
     counters = [proteome['category_counts'] for proteome in proteomes]
     
     correlation_matrix, pvalue_matrix = get_matracies(counters, categories, analysis_type)
+    write_dendro_heatmap(correlation_matrix, labels, filename)
 
-    # Perform hierarchical clustering
-    dendro = hierarchy.linkage(correlation_matrix, method='ward')  # check if ward is best!
-    dendro_idx = hierarchy.dendrogram(dendro, no_plot=True)['leaves']  
-
-    # Plot heatmap with dendrogram
-    plt.figure(figsize=(10, 8))
-    sns.clustermap(correlation_matrix, cmap='coolwarm', annot=True, fmt='.2e',
-        cbar_kws={'label': 'Spearman\'s Rank Correlation'}, #fix 
-        xticklabels=labels,
-        yticklabels=labels)
-    plt.title('Heatmap of Spearman\'s Rank Correlation with Hierarchical Clustering') # fix
-    plt.savefig(filename + '.png')
+    # move to functions
+    # add clustering output
+    # remove text from head mao
+    # squash errors
