@@ -36,7 +36,7 @@ def get_proteomes(annotation_files: List) -> List[Dict]:
         proteomes.append(proteome)
     return proteomes
 
-def count_categories(proteome, categories):
+def count_categories(proteome):
     ''' return a count of each category'''
     all_categories = ''.join([protein['COG_category'] for protein in proteome['proteins']])
     counts = Counter(all_categories)
@@ -56,7 +56,9 @@ def main(args):
     '''
     check_args(args)
     proteomes = get_proteomes(args.annotations)
-    categories = sorted(get_categorys([protein for proteome in proteomes for protein in proteome['proteins']]))
+    categories = sorted(
+        get_categorys([protein for proteome in proteomes for protein in proteome['proteins']])
+        )
     proteomes = get_category_counts(proteomes, categories)
     if args.barchart:
         barchart.plot_bar_chart(proteomes, categories, args.barchart)

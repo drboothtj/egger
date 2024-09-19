@@ -16,10 +16,10 @@ def get_categorys(proteins: List[Dict]):
         returns:
             categories: a set of discrete categories
     '''
-    # some data have multiple categories 
+    # some data have multiple categories
     # this is the simplest method to deal with that!
     categories = {dictionary['COG_category'] for dictionary in proteins}
-    categories = ''.join(categories) 
+    categories = ''.join(categories)
     categories = set(categories)
     return categories
 
@@ -143,6 +143,6 @@ def process(annotation_filename):
     proteins = convert_annotations_to_dictionary(annotations)
     return proteins
     #proteins = add_location_data(gbk_filename, proteins)
-    #cds_data = get_data_for_plot(proteins, annotation_type)    
+    #cds_data = get_data_for_plot(proteins, annotation_type)
     #records = {[point[0] for point in cds_data]}   #list of record names
     #return cds_data, categories, records

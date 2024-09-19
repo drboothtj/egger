@@ -7,5 +7,4 @@ def entrypoint():
     try:
         main.main()
     except Exception as error:
-        print(error)
-        
+        print(error)        
