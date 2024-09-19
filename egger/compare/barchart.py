@@ -3,10 +3,11 @@ plot bar charts for egger
     functions:
         !!!
 '''
-import numpy as np
-import matplotlib.pyplot as plt
 from typing import List, Dict
 from collections import Counter
+
+import numpy as np
+import matplotlib.pyplot as plt
 
 def draw_barchart(labels: List, counters: List[Counter], categories: List, filename: str) -> None:
     '''

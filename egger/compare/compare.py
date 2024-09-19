@@ -42,12 +42,12 @@ def count_categories(proteome):
     counts = Counter(all_categories)
     return counts
 
-def get_category_counts(proteomes, categories):
+def get_category_counts(proteomes):
     '''
     count COG categories for each annotation file
     '''
     for proteome in proteomes:
-        proteome['category_counts'] = count_categories(proteome, categories)
+        proteome['category_counts'] = count_categories(proteome)
     return proteomes
 
 def main(args):
@@ -59,7 +59,7 @@ def main(args):
     categories = sorted(
         get_categorys([protein for proteome in proteomes for protein in proteome['proteins']])
         )
-    proteomes = get_category_counts(proteomes, categories)
+    proteomes = get_category_counts(proteomes)
     if args.barchart:
         barchart.plot_bar_chart(proteomes, categories, args.barchart)
     if args.spearmans:
