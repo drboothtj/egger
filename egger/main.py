@@ -4,7 +4,7 @@ egger: visualise eggnog-mapper data
 functions:
     !!!!!!!!
 '''
-from egger.plot import plot
+from egger.window import window
 from egger.compare import compare
 from egger.parser import parser
 
@@ -29,9 +29,8 @@ def main() -> None:
             None
     '''
     args = parser.parse_args()
-    if args.command == 'plot':
-        plot.main(args)
+    if args.command == 'window':
+        window.main(args)
     elif args.command == 'compare': #not implemented yet
         compare.main(args)
-    
     

@@ -3,7 +3,7 @@ main routine for plot module
 '''
 import sys
 
-from egger.plot import slide
+from egger.window import slide
 from egger.utils import process
 
 def main(args):

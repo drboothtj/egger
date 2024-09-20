@@ -14,7 +14,7 @@ def get_parser(subparsers):
             parser: 
                 the parser for the plot module
     '''
-    parser = subparsers.add_parser('plot', help='plots data from a single genome')
+    parser = subparsers.add_parser('window', help='plots data from a single genome')
 
     parser.add_argument(
         '-a',

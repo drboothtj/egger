@@ -5,7 +5,7 @@ args parser for egger
         parse_args
 '''
 import argparse
-from egger.parser import compare, plot
+from egger.parser import compare, window
 
 def get_parser():
     ''''Create a parser object specific to skewer'''
@@ -17,8 +17,8 @@ def get_parser():
         )
 
     subparsers = parser.add_subparsers(dest='command', required=True)
-    plot.get_parser(subparsers)
     compare.get_parser(subparsers)
+    window.get_parser(subparsers)
     return parser
 
 def parse_args():
