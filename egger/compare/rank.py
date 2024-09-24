@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from scipy.stats import pearsonr, rankdata, spearmanr
-from scipy.cluster import hierarchy
 
 from egger.utils.io import write_to_tsv
 
@@ -41,7 +40,7 @@ def print_rank_data(filename: str, counters: List, labels: List) -> None:
     for label, counter in zip(labels, counters):
         line = []
         line.append(label)
-        counts = [counter[key] for key in count_lines[0]]
+        counts = [counter[key] for key in count_lines[0]][1:]
         ranks = rankdata(counts)
         line.extend(list(ranks))
         rank_lines.append(line)
@@ -53,6 +52,9 @@ def print_rank_data(filename: str, counters: List, labels: List) -> None:
     write_to_tsv(filename + '_counts.tsv', count_lines)
 
 def write_data(filename, data, labels):
+    '''
+    write data
+    '''
     new_lines = []
     headers = [" "]
     headers.extend(labels)
@@ -74,14 +76,15 @@ def write_dendro_heatmap(correlation_matrix, labels: List, filename: str) -> Non
         returns:
             None
     '''
-    #remove 0s as they will screw with clustering
-    correlation_matrix = np.where(correlation_matrix == 0, 1, correlation_matrix)
     # Plot heatmap with dendrogram
     plt.figure(figsize=(10, 8))
-    sns.clustermap(correlation_matrix, cmap='Greens', metric="correlation", method="complete", annot=False, fmt='.2e',
+    sns.clustermap(
+        correlation_matrix,
+        cmap='Greens', metric="correlation", method="complete", annot=False, fmt='.2e',
         cbar_kws={'label': 'Correlation'},
         xticklabels=labels,
-        yticklabels=labels)
+        yticklabels=labels
+        )
     plt.savefig(filename + '.svg')
 
 def get_matracies(counters, categories, analysis_type):
@@ -96,7 +99,7 @@ def get_matracies(counters, categories, analysis_type):
     correlation_matrix = np.zeros((n_counters, n_counters))
     pvalue_matrix = np.zeros((n_counters, n_counters))
     for i in range(n_counters):
-        for j in range(i + 1, n_counters):
+        for j in range(i, n_counters):
             if analysis_type == 'spearmans':
                 correlation, pvalue = spearmanr(data[i], data[j])
             if analysis_type == 'pearsons':
@@ -121,7 +124,7 @@ def rank(proteomes: List[Dict], categories: List, filename: str, analysis_type: 
     counters = [proteome['category_counts'] for proteome in proteomes]
     counters = get_uniform_counters(counters) #none equal counters will screw up ranking
 
-    print_rank_data(filename, counters, labels)
+    print_rank_data(filename, counters, labels) # this is done twice if you do both
 
     correlation_matrix, pvalue_matrix = get_matracies(counters, categories, analysis_type)
     write_dendro_heatmap(correlation_matrix, labels, filename)
