@@ -75,11 +75,14 @@ def get_cds_locations(filename: str) -> List[Tuple[str, str, int, int, float]]:
         record_name = record.name
         for feature in record.features:
             if feature.type == 'CDS':
-                cds_name = feature.qualifiers['locus_tag'][0]
-                start = int(feature.location.start)
-                stop = int(feature.location.end)
-                midpoint = start + ((stop-start)/2)
-                locations_list.append((cds_name, record_name, start, stop, midpoint))
+                try:
+                    cds_name = feature.qualifiers['protein_id'][0]
+                    start = int(feature.location.start)
+                    stop = int(feature.location.end)
+                    midpoint = start + ((stop-start)/2)
+                    locations_list.append((cds_name, record_name, start, stop, midpoint))
+                except:
+                    print(f'Feature at {feature.location} has no protein ID!')
     return locations_list
 
 def add_location_data(filename: str, proteins: List[Dict]) -> List[Dict]:
@@ -126,7 +129,7 @@ def get_data_for_plot(
         data_points.append(data_point)
     return data_points
 
-def process(annotation_filename):
+def process(annotation_filename, gbk_filename=None):
     '''
     main routine for process
         arguments:
@@ -141,8 +144,6 @@ def process(annotation_filename):
     lines = io.read_tsv(annotation_filename)
     annotations = process_headers(lines)
     proteins = convert_annotations_to_dictionary(annotations)
+    if gbk_filename:
+        proteins = add_location_data(gbk_filename, proteins)
     return proteins
-    #proteins = add_location_data(gbk_filename, proteins)
-    #cds_data = get_data_for_plot(proteins, annotation_type)
-    #records = {[point[0] for point in cds_data]}   #list of record names
-    #return cds_data, categories, records

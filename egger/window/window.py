@@ -1,10 +1,9 @@
 '''
 main routine for plot module
 '''
-import sys
-
 from egger.window import slide
 from egger.utils import process
+from egger.utils.errors import BadArgumentsError
 
 def main(args):
     '''
@@ -17,16 +16,15 @@ def main(args):
     ### Get args -- move to parser
     annotation_filename = args.annotations
     gbk_filename = args.genbank
-    annotation_type = args.category
     window_info = args.window_size, args.step_size
     sw_output = args.sliding_window_output #os.path!
     sw_plot = args.sliding_window_plot #os.path!
     if sw_plot is None and sw_output is None: ## UPDATE FOR BAR CHART
-        sys.exit('No output specified. Exiting...')
+        raise BadArgumentsError('No output specified. Specify either -swp or -swo.')
     ### Combine data from .annotation and .gbk ###
-    data_points, categories, records = process.process(
-        annotation_filename, gbk_filename, annotation_type
-        )
+    proteins = process.process(annotation_filename, gbk_filename)
+    records = {protein['record_name'] for protein in proteins if 'record_name' in protein}
+    categories = process.get_categorys(proteins)
     ### Make frame plots for each record ###
     if sw_plot or sw_output:
         for record in records:

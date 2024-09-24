@@ -33,13 +33,6 @@ def get_parser(subparsers):
         required = True
         )
     parser.add_argument(
-        '-c',
-        '--category',
-        type=str,
-        default='COG_category',
-        help='the category of annotations to plot (default: %(default)s)'
-        )
-    parser.add_argument(
         '-w',
         '--window-size',
         type=int,
