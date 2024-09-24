@@ -7,13 +7,21 @@ from collections import Counter
 from typing import Dict, List
 
 from egger.utils.process import process, get_categorys
+from egger.utils.errors import BadArgumentsError
 from egger.compare import barchart, rank
 
 def check_args(args):
     '''
     Check for valid input and outputs
     '''
-    print('add argument checker!')
+    #check enough samples for correlations
+    if args.spearmans or args.pearsons:
+        if len(args.annotations) < 3:
+            raise BadArgumentsError(
+                'Must select at least three files when performing correlation analysis.'
+                )
+
+    
 
 def get_proteomes(annotation_files: List) -> List[Dict]:
     '''
