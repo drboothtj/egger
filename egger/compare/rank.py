@@ -4,6 +4,7 @@ perform spearman's rank correlation analysis for egger's compare module
         !!!
 '''
 from typing import List, Dict
+from os.path import basename, splitext
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -73,9 +74,11 @@ def write_dendro_heatmap(correlation_matrix, labels: List, filename: str) -> Non
         returns:
             None
     '''
+    #remove 0s as they will screw with clustering
+    correlation_matrix = np.where(correlation_matrix == 0, 1, correlation_matrix)
     # Plot heatmap with dendrogram
     plt.figure(figsize=(10, 8))
-    sns.clustermap(correlation_matrix, cmap='Greens', annot=False, fmt='.2e',
+    sns.clustermap(correlation_matrix, cmap='Greens', metric="correlation", method="complete", annot=False, fmt='.2e',
         cbar_kws={'label': 'Correlation'},
         xticklabels=labels,
         yticklabels=labels)
@@ -113,7 +116,7 @@ def rank(proteomes: List[Dict], categories: List, filename: str, analysis_type: 
         returns:
             None
     '''
-    labels = [proteome['name'] for proteome in proteomes]
+    labels = [splitext(basename(proteome['name']))[0] for proteome in proteomes]
     #labels = [label[:10] for label in labels]
     counters = [proteome['category_counts'] for proteome in proteomes]
     counters = get_uniform_counters(counters) #none equal counters will screw up ranking

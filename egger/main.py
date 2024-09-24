@@ -31,6 +31,6 @@ def main() -> None:
     args = parser.parse_args()
     if args.command == 'window':
         window.main(args)
-    elif args.command == 'compare': #not implemented yet
+    elif args.command == 'compare':
         compare.main(args)
     
