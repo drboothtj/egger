@@ -28,7 +28,7 @@ def main(args):
     ### Make frame plots for each record ###
     if sw_plot or sw_output:
         for record in records:
-            window_data = slide.get_window_data(record, categories, data_points, window_info)
+            window_data = slide.get_window_data(record, categories, proteins, window_info)
             #parse out slide.get_window_data and slide.slide_window
             if sw_plot:
                 slide.plot_sliding_window(window_data, categories, sw_plot, record)
