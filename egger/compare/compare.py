@@ -21,8 +21,6 @@ def check_args(args):
                 'Must select at least three files when performing correlation analysis.'
                 )
 
-    
-
 def get_proteomes(annotation_files: List) -> List[Dict]:
     '''
     takes a list of eggnog annotation files and 
