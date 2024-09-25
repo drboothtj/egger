@@ -23,7 +23,7 @@ def plot_sliding_window(
         y_values = [window_data[x_value][category] for x_value in x_values]
         trace = go.Scatter(x=x_values, y=y_values, mode="lines", name=category)
         figure.add_trace(trace)
-    figure.write_html(record + filename)
+    figure.write_html(f'{filename}{record}.html')
     ##update figure with legends etc.
 
 def write_data(contents: Dict, output: str, record: str) -> None:
@@ -40,7 +40,7 @@ def write_data(contents: Dict, output: str, record: str) -> None:
         values = list(contents[key].values())
         line.extend(values)
         lines.append(line)
-    io.write_to_tsv(record + output, lines)
+    io.write_to_tsv(f'{output}{record}.csv', lines)
 
 def slide_window(
     proteins: List[Dict], categories: List[str],

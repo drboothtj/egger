@@ -51,18 +51,14 @@ def get_parser(subparsers):
         '--sliding-window-plot',
         type=str,
         default = None,
-        help='path to save the sliding window plot (default: %(default)s)'
+        help='prefix to use when writing the sliding window plot (default: %(default)s)'
         )
     parser.add_argument(
         '-swo',
         '--sliding-window-output',
         type=str,
         default = None,
-        help='path to save the sliding window output data table (default: %(default)s)'
+        help='prefix to use when writing the output data table (default: %(default)s)'
         )
-    parser.add_argument(
-        '-l',
-        '--logging',
-        help='the logging level for egger (default: %(default)s)'
-        )
+    #add logging
     return parser
