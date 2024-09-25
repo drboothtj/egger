@@ -15,6 +15,6 @@ setup(
     url="https://github.com/DrBoothTJ/egger",
     license='GNU General Public License v3.0',
     python_requires='>=3.9',
-    install_requires=[plotly, pandas, Bio],
+    install_requires=['matplotlib','plotly','scipy','seaborn','Bio'],
     entry_points={'console_scripts': ["egger=egger.__main__:entrypoint"]}
 )
