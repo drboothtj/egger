@@ -35,12 +35,15 @@ def write_data(contents: Dict, output: str, record: str) -> None:
             None
     '''
     lines = []
+    heading = [' ']
+    heading.extend({inner_key for key in contents for inner_key in contents[key].keys()})
+    lines.append(heading)
     for key in contents.keys():
         line = [key]
         values = list(contents[key].values())
         line.extend(values)
         lines.append(line)
-    io.write_to_tsv(f'{output}{record}.csv', lines)
+    io.write_to_tsv(f'{output}{record}.tsv', lines)
 
 def slide_window(
     proteins: List[Dict], categories: List[str],
