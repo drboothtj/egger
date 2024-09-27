@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="egger",
-    version="0.0.2",
+    version="1.0.0",
     author="Thomas J. Booth",
     author_email="thoboo@biosustain.dtu.dk",
     packages=find_packages(),
