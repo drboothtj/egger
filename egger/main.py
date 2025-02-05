@@ -8,13 +8,12 @@ from egger.window import window
 from egger.compare import compare
 from egger.parser import parser
 
-
+## TODO
 ## add logging
-## figureout which categories we can chart
-## finish parser - fix arguments to binary
-## sort out architecture
-## seriously clean up code
+## figureout which other categories we can chart
+## change arguments to binary instead of prefix input
 ## specify an output directory
+## produce percentage counts for each category
 
 def main() -> None:
     '''
