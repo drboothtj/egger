@@ -67,6 +67,9 @@ This analysis is particularly useful for finding regions of the genome that are 
 Coming soon...
 
 ## Patch Notes
-- v1.0.0 - Initial version
-- v1.0.1 - Updated parser text
+- v1.0.0
+  - Initial version
+- v1.0.1
+  - Updated parser text
+  - Upated input parsing to accept wildcards
   
