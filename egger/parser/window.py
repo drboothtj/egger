@@ -1,10 +1,9 @@
 '''
-subparser for basic plot module of egger
-
-functions:
-xxxx
+subparser for the window plot module of egger
+    functions:
+        get_parser(subparsers) -> None
 '''
-def get_parser(subparsers):
+def get_parser(subparsers) -> None:
     '''
     create the plot subparser
         arguments:

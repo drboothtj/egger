@@ -1,5 +1,5 @@
 # egger
-a python package to plot results from eggnog-mapper
+a python package to plot results from eggnog-mapper and calculate correlations
 
 ## Description
 
@@ -68,4 +68,5 @@ Coming soon...
 
 ## Patch Notes
 - v1.0.0 - Initial version
+- v1.0.1 - Updated parser text
   

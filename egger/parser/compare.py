@@ -1,10 +1,9 @@
 '''
-subparser for compare plot module of egger
-
-functions:
-xxxx
+subparser for comparison module of egger
+    functions:
+        get_parser(subparsers) -> None
 '''
-def get_parser(subparsers):
+def get_parser(subparsers) -> None:
     '''
     create the plot subparser
         arguments:

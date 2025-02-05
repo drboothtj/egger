@@ -8,11 +8,11 @@ import argparse
 from egger.parser import compare, window
 
 def get_parser():
-    ''''Create a parser object specific to skewer'''
+    ''''Create a parser object specific to egger'''
     parser = argparse.ArgumentParser(
         "egger",
         description=
-        "egger: a python package to visualise eggnog annotations.",
+        "egger: a python package to visualise eggnog annotations and calculate correlations.",
         epilog="Written by Dr. Thom Booth, 2023."
         )
 
