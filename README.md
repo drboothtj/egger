@@ -40,7 +40,7 @@ Here is an example using this repository's `example_data/outputs/compare_outputs
 #### compare output
 These heatmaps can help identify relationships between genomes or other sequences. 
 
-![Compare example output](https://github.com/drboothtj/egger/blob/main/example_data/outputs/compare_outputs/spearmans.svg)
+![Compare example output](https://raw.githubusercontent.com//drboothtj/egger//main/example_data/outputs/compare_outputs/spearmans.svg)
 
 ### window
 
@@ -60,7 +60,7 @@ This will produce two files:
 2. `-swp` writes a .html file for an interactive plot of the sliding window data.
 
 This analysis is particularly useful for finding regions of the genome that are dedicated to a specific function. In the example, *Lactococcus lactis* has three notable islands for the COG categories J, M and P (among others).
-![example window output](https://github.com/drboothtj/egger/blob/main/example_data/outputs/window_outputs/plot_AP018499.png)
+![example window output](https://raw.githubusercontent.com/drboothtj/egger/main/example_data/outputs/window_outputs/plot_AP018499.png)
 
 ## Citation
 
