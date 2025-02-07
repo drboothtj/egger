@@ -15,7 +15,7 @@ See below for usage examples.
 
 ## Installation
 
-You can install egger with `pip`.
+You can install `egger` with `pip`.
 
 Either use the PyPI installation: `pip install egger`.
 
