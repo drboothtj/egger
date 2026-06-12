@@ -65,8 +65,8 @@ This analysis is particularly useful for finding regions of the genome that are 
 ## Citation
 If you use `egger`, please cite:
 
-Gomez-Escribano, J. P., Dorai-Raj, S., Baker, D., Lacey, E., Wilkinson, B. and Booth, T. J. Evidence supporting the first secondary chromosome in actinobacteria as a hallmark of the Embleya genus. *BioRxiv* (2025).
-DOI: https://doi.org/10.1101/2025.07.03.662523
+Gomez-Escribano, J. P., Dorai-Raj, S., Baker, D., Lacey, E., Wilkinson, B. and Booth, T. J. Evidence supporting the first secondary chromosome in Actinobacteria as a hallmark of the Embleya genus. *Microb Gen* **12** (5): 001704 (2025).
+DOI: https://doi.org/10.1099/mgen.0.001704
 
 ## Patch Notes
 - v1.0.0
