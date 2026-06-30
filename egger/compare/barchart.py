@@ -3,11 +3,28 @@ plot bar charts for egger
     functions:
         !!!
 '''
+import csv
 from typing import List, Dict
 from collections import Counter
 
 import numpy as np
 import matplotlib.pyplot as plt
+
+def write_values(labels: List[str], counters: List[Counter], filename: str) -> None:
+    '''
+    write a list of counters to a .csv file
+        arguments:
+            counters: a list of counters
+            filename: path to output .csv
+        returns:
+            None
+    '''
+    categories = sorted(set().union(*counters))
+    with open(filename + '.csv','w') as file:
+        writer = csv.writer(file)
+        writer.writerow(categories)
+        for label, counter in zip(labels, counters):
+            writer.writerow([label] + [counter.get(category, 0) for category in categories])
 
 def convert_counter_to_percentages(counters: List) -> List:
     '''
@@ -76,5 +93,7 @@ def plot_bar_chart(proteomes: List[Dict], categories, filename: str) -> None:
     labels = [proteome['name'] for proteome in proteomes]
     counters = [proteome['category_counts'] for proteome in proteomes]
     draw_barchart(labels, counters, categories, filename)
+    write_values(labels, counters, filename)
     percentage_counters = convert_counter_to_percentages(counters)
     draw_barchart(labels, percentage_counters, categories, filename + '_percentages')
+    write_values(labels, percentage_counters, filename + '_percentages')

@@ -69,9 +69,10 @@ Gomez-Escribano, J. P., Dorai-Raj, S., Baker, D., Lacey, E., Wilkinson, B. and B
 DOI: https://doi.org/10.1099/mgen.0.001704
 
 ## Patch Notes
-- v1.0.0
-  - Initial version
+- v1.0.2
+    - Now writes values for barcharts to corresponding .csv files
 - v1.0.1
-  - Updated parser text
-  - Upated input parsing to accept wildcards
-  
+    - Updated parser text
+    - Upated input parsing to accept wildcards
+- v1.0.0
+    - Initial version
